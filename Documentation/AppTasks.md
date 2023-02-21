@@ -76,9 +76,11 @@ class AppServices: ServiceProvider {
 
 ## AppTask
 ### Description
-An `AppTask` is some kind of setup task that needs to be performed before any `AppDelegate` delegate call is performed.
+An `AppTask` is an NSOperation subclass that needs to be performed before any `AppDelegate` or `SceneDelegate` call is performed.
 
 To create an `AppTask` you must provide an object that conforms to `AppTask` , overrides its `main()` method, and calls `setFinished()` when it finishes the process.
+
+Since these tasks are NSOperations, you can create various dependencies between them, and when submitted to `AppTasks`, they can even execute in parallel if the dependencies are set up in that way.
 
 ### Example
 
