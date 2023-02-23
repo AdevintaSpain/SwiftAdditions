@@ -41,9 +41,13 @@ it, simply add the following line to your Podfile:
 pod 'Additions'
 ```
 
-## Author
+## Authors
 
-Marton Kerekes, marton.kerekes@adevinta.com
+[Marton Kerekes](https://github.com/kerekesmarton)
+[Miquel Alvarado](https://github.com/miquelalvarado)
+[Gerard Pedreny](https://github.com/gerardpedreny)
+[David Arrufat](https://github.com/darrufat)
+[Gil Serra](https://github.com/gilserrap)
 
 ## License
 
