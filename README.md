@@ -43,11 +43,11 @@ pod 'Additions'
 
 ## Authors
 
-[Marton Kerekes](https://github.com/kerekesmarton)
-[Miquel Alvarado](https://github.com/miquelalvarado)
-[Gerard Pedreny](https://github.com/gerardpedreny)
-[David Arrufat](https://github.com/darrufat)
-[Gil Serra](https://github.com/gilserrap)
+- [Marton Kerekes](https://github.com/kerekesmarton)
+- [Miquel Alvarado](https://github.com/miquelalvarado)
+- [Gerard Pedreny](https://github.com/gerardpedreny)
+- [David Arrufat](https://github.com/darrufat)
+- [Gil Serra](https://github.com/gilserrap)
 
 ## License
 
