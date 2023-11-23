@@ -1,13 +1,12 @@
 import Foundation
 import Additions
 
-class SomeLongRunningTask: AppTask {
-    @Inject var dispatch: Dispatching
-
+class SomeLongRunningTask: AsyncOperation {
+    
     override func main() {
         super.main()
-        dispatch.dispatchMain(after: 1) {
-            print("\(self) finished")
+        Task {
+            try await Task.sleep(for: 1)
             self.state = .finished
         }
     }

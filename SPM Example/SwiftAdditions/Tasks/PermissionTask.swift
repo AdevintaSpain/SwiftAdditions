@@ -3,7 +3,7 @@ import Additions
 import UserNotifications
 import UIKit
 
-class PermissionTask: AppTask {
+class PermissionTask: AsyncOperation {
 
     override func main() {
         super.main()
@@ -16,8 +16,11 @@ class PermissionTask: AppTask {
         }
     }
 
+}
+
+class PermissionsPlugin: NSObject, AppLifecyclePluginable {
+
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         print("\(self) \(#function) \n with \(deviceToken)")
     }
-
 }

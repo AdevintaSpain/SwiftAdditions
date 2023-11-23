@@ -41,7 +41,7 @@ public class CoreServiceLocator {
 
 extension CoreServiceLocator {
     /// Composition root container of dependencies.
-    public static var shared = CoreServiceLocator()
+    public static let shared = CoreServiceLocator()
 
     /// Registers a specific type and its instantiating factory.
     public func add(@Factory _ module: () -> Register) {
@@ -71,7 +71,7 @@ extension CoreServiceLocator {
         services.removeAll()
     }
 
-    /// Resolves through inference and returns an instance of the given type from the current default container. 
+    /// Resolves through inference and returns an instance of the given type from the current default container.
     /// **Important**
     /// - Although `public` for legacy purposes, try to avoid using this, instead use `Inject`
     /// - If the dependency is not found, an exception will occur.
@@ -139,6 +139,7 @@ public class Inject<Value>: ObservableObject {
     private let name: String?
     private var storage: Value?
 
+    @MainActor
     public var wrappedValue: Value {
         storage ?? {
             let value: Value = CoreServiceLocator.shared.module(for: Value.self)
@@ -151,7 +152,7 @@ public class Inject<Value>: ObservableObject {
         self.name = nil
     }
 
-    public init<Value>(_ type: Value.Type = Value.self) {
+    public init(_ type: Value.Type = Value.self) {
         self.name = String(describing: Value.self)
     }
 }

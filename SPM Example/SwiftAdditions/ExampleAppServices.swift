@@ -7,11 +7,11 @@ class ExampleAppServices: ServiceProvider {
     lazy var shortTask = SyncTask()
     lazy var dependentTask = DependentTask()
     lazy var permissionTask = PermissionTask()
-    lazy var windowSetupTask = WindowSetupTask()
-    lazy var onboardingTask = OnboardingTask()
-    lazy var mainUISetupTask = MainUISetupTask()
+    lazy var windowSetupTask = WindowSetupTask(scope: .main)
+    lazy var onboardingTask = OnboardingTask(scope: .main)
+    lazy var mainUISetupTask = MainUISetupTask(scope: .main)
 
-    lazy var appTasks: [AppTask] = {
+    lazy var appTasks: [AsyncOperation] = {
 
         dependentTask.addDependency(someLongRunningTask)
 
@@ -34,6 +34,10 @@ class ExampleAppServices: ServiceProvider {
             mainUISetupTask,
         ]
     }()
+
+    var appPlugins: [AppLifecyclePluginable] {
+        [PermissionsPlugin()]
+    }
 
     func modules() -> [Register] {
         [

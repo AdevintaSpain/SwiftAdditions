@@ -2,14 +2,14 @@ import Foundation
 import UIKit
 import UserNotifications
 
-public protocol ApplicationLifecycleTask: UIWindowSceneDelegate, UIApplicationDelegate, UNUserNotificationCenterDelegate {}
+public protocol AppLifecyclePluginable: UIWindowSceneDelegate, UIApplicationDelegate, UNUserNotificationCenterDelegate {}
 
 
 ///
 /// An instance of this protocol will provide a combination of sync / async operations that can be queued before the app's first functions start:
 ///
 /// See in the example app, and its output:
-/// 
+///
 /// ```
 /// class ExampleAppServices: ServiceProvider {
 ///
@@ -53,7 +53,8 @@ public protocol ApplicationLifecycleTask: UIWindowSceneDelegate, UIApplicationDe
 ///
 public protocol ServiceProvider {
     func modules() -> [Register]
-    var appTasks: [AppTask] { get }
+    var appTasks: [AsyncOperation] { get }
+    @MainActor var appPlugins: [AppLifecyclePluginable] { get }
 }
 
 ///
@@ -63,21 +64,15 @@ public protocol ServiceProvider {
 /// ```
 /// private lazy var serviceProviders: [ServiceProvider] = [
 ///     ExampleAppServices(),
-///     AdditionsServices(),
+///     DomainServices(),
+///     FeatureServices(),
 /// ]
 /// ```
 ///
-/// used in first class getting called, usually SceneDelegate (AppDelegate if first is not implemented)
+/// build first before getting called, usually in SceneDelegate (AppDelegate if first is not implemented)
 /// ```
-/// private lazy var tasks = AppTasks.build(serviceProviders: serviceProviders) {
+/// AppPlugins.shared.build(serviceProviders: serviceProviders) {
 ///     print("all tasks completed")
-/// }
-/// ```
-///
-/// subsequent uses in other classes, usually AppDelegate:
-/// ```
-/// private var tasks: AppTasks? {
-///     AppTasks.shared
 /// }
 /// ```
 ///
@@ -99,40 +94,38 @@ public protocol ServiceProvider {
 /// }
 ///
 /// ```
-open class AppTasks {
+public class AppPlugins {
 
-    public static var shared: AppTasks?
-    public static func build(serviceProviders: [ServiceProvider], finished: @escaping Action) -> AppTasks {
-        let tasks = AppTasks(serviceProviders, finished: finished)
-        shared = tasks
-        return tasks
-    }
+    public static let shared: AppPlugins = AppPlugins()
 
-    @Inject private var dispatch: Dispatching
-    private let queue = OperationQueue()
-    private  var serviceProviders = [ServiceProvider]()
-
-    private lazy var allTasks: [AppTask] = {
-        serviceProviders.compactMap { $0.appTasks }.reduce([AppTask]()) { (result, next) in
-            return result + next
-        }
-    }()
-
-    private init(_ serviceProviders: [ServiceProvider], finished: @escaping Action) {
+    @MainActor
+    public func build(serviceProviders: [ServiceProvider], finished: @escaping () -> Void) {
         self.serviceProviders = serviceProviders
         CoreServiceLocator.shared.addBuildTasks {
             serviceProviders
         }
+        self.allPlugins = serviceProviders.compactMap { $0.appPlugins }.reduce([AppLifecyclePluginable]()) { (result, next) in
+            return result + next
+        }
+
+        self.allTasks = serviceProviders.compactMap { $0.appTasks }.reduce([AsyncOperation]()) { (result, next) in
+            return result + next
+        }
 
         queue.addOperations(allTasks, waitUntilFinished: false)
         queue.addBarrierBlock {
-            self.dispatch.dispatchMain { [weak self] in
-                finished()
-                self?.isReady = true
-            }
+            finished()
+            self.isReady = true
         }
     }
 
+    private let queue = OperationQueue()
+    private var serviceProviders = [ServiceProvider]()
+
+    private var allTasks: [AsyncOperation] = []
+    private var allPlugins: [AppLifecyclePluginable] = []
+
+    @MainActor
     private var isReady: Bool = false {
         didSet {
             guard isReady else { return }
@@ -144,37 +137,39 @@ open class AppTasks {
                 case .allSatisfyPredicate(let body):
                     _ = try? allSatisfy(body)
                 }
+                buffer.removeAll()
             }
-            buffer.removeAll()
         }
     }
 
     private enum BufferedPredicate {
-        case forPredicate( (ApplicationLifecycleTask) throws -> Void)
-        case allSatisfyPredicate((ApplicationLifecycleTask) throws -> Bool)
+        case forPredicate((AppLifecyclePluginable) throws -> Void)
+        case allSatisfyPredicate((AppLifecyclePluginable) throws -> Bool)
     }
 
     private var buffer = [BufferedPredicate]()
 
-    public func forEach(_ body: @escaping (ApplicationLifecycleTask) throws -> Void) rethrows {
+    @MainActor
+    public func forEach(_ body: @escaping (AppLifecyclePluginable) throws -> Void) rethrows {
         guard isReady else {
             buffer.append(.forPredicate(body))
             return
         }
 
-        try allTasks.forEach(body)
+        try allPlugins.forEach(body)
     }
 
-    @discardableResult
-    public func allSatisfy(_ predicate: @escaping (ApplicationLifecycleTask) throws -> Bool) rethrows -> Bool {
+    @discardableResult @MainActor
+    public func allSatisfy(_ predicate: @escaping (AppLifecyclePluginable) throws -> Bool) rethrows -> Bool {
         guard isReady else {
             buffer.append(.allSatisfyPredicate(predicate))
             return true
         }
-        return try allTasks.allSatisfy(predicate)
+        return try allPlugins.allSatisfy(predicate)
     }
 
-    public func reduce<Result>(_ initialResult: Result, _ nextPartialResult: (Result, ApplicationLifecycleTask) throws -> Result) rethrows -> Result {
-        try allTasks.reduce(initialResult, nextPartialResult)
+    @MainActor
+    public func reduce<Result>(_ initialResult: Result, _ nextPartialResult: (Result, AppLifecyclePluginable) throws -> Result) rethrows -> Result {
+        try allPlugins.reduce(initialResult, nextPartialResult)
     }
 }

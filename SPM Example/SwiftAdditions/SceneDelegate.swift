@@ -4,23 +4,25 @@ import Additions
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
-    private lazy var serviceProviders: [ServiceProvider] = [
-        ExampleAppServices(),
-        AdditionsServices(),
-    ]
-
-    private lazy var tasks = AppTasks.build(serviceProviders: serviceProviders) {
-        print("all tasks completed")
+    override init() {
+        super.init()
+        AppPlugins.shared.build(serviceProviders: serviceProviders) {
+            print("all tasks completed")
+        }
     }
 
+    private lazy var serviceProviders: [ServiceProvider] = [
+        ExampleAppServices(),
+    ]
+
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        tasks.forEach {
+        AppPlugins.shared.forEach {
             $0.scene?(scene, willConnectTo: session, options: connectionOptions)
         }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-        tasks.forEach {
+        AppPlugins.shared.forEach {
             $0.sceneDidEnterBackground?(scene)
         }
     }

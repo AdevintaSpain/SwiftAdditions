@@ -7,7 +7,7 @@ struct OnboardingScreen: View {
 
     var body: some View {
         VStack {
-            Text("Hello, World!")
+            Text("Hello, This is the onboarding!")
 
             Button(action: {
                 onboardingTask.finish()

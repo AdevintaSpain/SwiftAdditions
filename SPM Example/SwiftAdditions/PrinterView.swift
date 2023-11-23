@@ -28,7 +28,7 @@ protocol ReaderProtocol {
 class Reader: ReaderProtocol {
     var timer: Timer?
 
-    var characters = "Hello world!!!"
+    var characters = "Main App UI"
 
     func start(update: @escaping (Character) -> Void ) {
         timer = Timer.scheduledTimer(
