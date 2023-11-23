@@ -13,7 +13,6 @@ There's multiple niceties in this repo anyone in Adevinta might be able to use
 
 ### Additions
 - `CoreServiceLocator` simplification using `@Inject` 
-- `Dispatching` for easy handling of `DispatchQueue` and `GCD`
 - `AsyncOperation` simple wrapper over `NSOperation`
 - [AppTasks](Documentation/AppTasks.md) in conjuction with `AppTask: AsyncOperation` and `ServiceProvider` will provide a coordinated way to start any application.
 
