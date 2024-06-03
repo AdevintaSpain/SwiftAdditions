@@ -6,13 +6,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     override init() {
         super.init()
-        AppPlugins.shared.build(serviceProviders: serviceProviders) {
-            print("all tasks completed")
+
+        Task { @MainActor in
+            AppPlugins.shared.build(serviceProviders: serviceProviders) {
+                print("all tasks completed")
+            }
         }
+
     }
 
     private lazy var serviceProviders: [ServiceProvider] = [
-        ExampleAppServices(),
+        ExampleAppServices()
     ]
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {

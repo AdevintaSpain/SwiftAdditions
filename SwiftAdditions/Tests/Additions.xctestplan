@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "B0106FDA-1C66-4476-AEAF-1E25E0DA95D7",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "AdditionsTests",
+        "name" : "AdditionsTests"
+      }
+    }
+  ],
+  "version" : 1
+}

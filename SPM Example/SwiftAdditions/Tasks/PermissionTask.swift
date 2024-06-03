@@ -11,7 +11,7 @@ class PermissionTask: AsyncOperation {
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
 
-            self.state = .finished
+            self.setFinished()
             print("\(self) finished")
         }
     }

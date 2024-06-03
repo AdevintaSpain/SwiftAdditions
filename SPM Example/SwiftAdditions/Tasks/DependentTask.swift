@@ -1,14 +1,10 @@
 import Foundation
 import Additions
 
-class DependentTask: AsyncOperation {
-    
-    override func main() {
-        super.main()
-        Task {
-            try await Task.sleep(for: 1)
-            print("\(self) finished")
-            self.state = .finished
-        }
+class DependentTask: CancellableTask<Void> {
+
+    override func execute() async throws -> Void {
+        try await Task.sleep(for: 1)
+        setFinished()
     }
 }

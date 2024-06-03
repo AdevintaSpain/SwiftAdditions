@@ -35,6 +35,9 @@ public class CoreServiceLocator {
     /// Stored object instance factories.
     private var services = [String: Register]()
 
+    /// Stored unique object instances.
+    private var uniqueInstances = [String: Any]()
+
     fileprivate init() {}
     deinit { services.removeAll() }
 }
@@ -69,21 +72,32 @@ extension CoreServiceLocator {
 
     public func removeAll() {
         services.removeAll()
+        uniqueInstances.removeAll()
     }
 
-    /// Resolves through inference and returns an instance of the given type from the current default container.
+    /// Resolves through inference and returns an instance of the given type from the current default container. 
     /// **Important**
     /// - Although `public` for legacy purposes, try to avoid using this, instead use `Inject`
     /// - If the dependency is not found, an exception will occur.
     ///
     public func module<T>(for type: T.Type = T.self) -> T {
         let name = String(describing: T.self)
-
-        guard let component = services[name]?.resolve() else {
+        guard let service = services[name] else {
             fatalError("Dependency '\(T.self)' not resolved!")
         }
 
-        return component as! T
+        switch service.storagePolicy {
+        case .unique:
+            if let uniqueInstance = uniqueInstances[name] as? T {
+                return uniqueInstance
+            } else {
+                let instance = service.resolve()
+                uniqueInstances[name] = instance
+                return instance as! T
+            }
+        case .new:
+            return service.resolve() as! T
+        }
     }
 }
 
@@ -93,6 +107,13 @@ public extension CoreServiceLocator {
         public static func buildBlock(_ modules: Register...) -> [Register] { modules }
         public static func buildBlock(_ module: Register) -> Register { module }
     }
+}
+
+// TODO: update documentation
+// Register(Foo.self, .unique) { FooImp() }
+public enum StoragePolicy {
+    case unique
+    case new
 }
 
 ///
@@ -117,10 +138,12 @@ public extension CoreServiceLocator {
 
 public struct Register {
     fileprivate let name: String
+    fileprivate let storagePolicy: StoragePolicy
     fileprivate let resolve: () -> Any
 
-    public init<T>(_ type: T.Type = T.self, _ resolve: @escaping () -> T) {
+    public init<T>(_ type: T.Type = T.self, _ storagePolicy: StoragePolicy = .new, _ resolve: @escaping () -> T) {
         self.name = String(describing: T.self)
+        self.storagePolicy = storagePolicy
         self.resolve = resolve
     }
 }
@@ -139,7 +162,6 @@ public class Inject<Value>: ObservableObject {
     private let name: String?
     private var storage: Value?
 
-    @MainActor
     public var wrappedValue: Value {
         storage ?? {
             let value: Value = CoreServiceLocator.shared.module(for: Value.self)

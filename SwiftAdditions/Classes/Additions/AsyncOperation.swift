@@ -39,4 +39,9 @@ open class AsyncOperation: Operation {
             state = .executing
         }
     }
+
+    public func setFinished() {
+        state = .finished
+        print("finished \(self)")
+    }
 }

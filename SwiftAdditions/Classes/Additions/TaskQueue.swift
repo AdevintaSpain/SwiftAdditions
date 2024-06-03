@@ -1,7 +1,7 @@
 import Foundation
 
-public extension Task where Success == Never, Failure == Never {
-    static func sleep(for seconds: Double) async throws {
+extension Task where Success == Never, Failure == Never {
+    public static func sleep(for seconds: Double) async throws {
         try await sleep(nanoseconds: UInt64(seconds * 1_000_000_000))
     }
 }
@@ -24,7 +24,7 @@ public class TaskQueue<U> {
     }
 
     public func cancelAllOperations() {
-        queue.cancelAllOperations()
+        queue.cancelAllOperations()        
     }
 
     public func add(priority: TaskPriority? = nil, task: AsyncOperation) {
@@ -66,7 +66,7 @@ open class CancellableTask<U>: AsyncOperation {
             }
         }
     }
-
+    
     open func execute() async throws -> U {
         fatalError("not implemented")
     }

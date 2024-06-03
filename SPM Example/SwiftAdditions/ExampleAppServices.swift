@@ -3,16 +3,16 @@ import Additions
 
 class ExampleAppServices: ServiceProvider {
 
-    lazy var someLongRunningTask = SomeLongRunningTask()
+    lazy var someLongRunningTask = SomeLongRunningTask(scope: .default)
     lazy var shortTask = SyncTask()
-    lazy var dependentTask = DependentTask()
+    lazy var dependentTask = DependentTask(scope: .default)
     lazy var permissionTask = PermissionTask()
     lazy var windowSetupTask = WindowSetupTask(scope: .main)
     lazy var onboardingTask = OnboardingTask(scope: .main)
     lazy var mainUISetupTask = MainUISetupTask(scope: .main)
 
     lazy var appTasks: [AsyncOperation] = {
-
+        
         dependentTask.addDependency(someLongRunningTask)
 
         windowSetupTask.addDependency(dependentTask)
@@ -38,10 +38,10 @@ class ExampleAppServices: ServiceProvider {
     var appPlugins: [AppLifecyclePluginable] {
         [PermissionsPlugin()]
     }
-
+    
     func modules() -> [Register] {
         [
-            Register(ReaderProtocol.self, { Reader() }),
+            Register(DataSource.self) { CharacterDataSource() },
             Register { self.onboardingTask }
         ]
     }

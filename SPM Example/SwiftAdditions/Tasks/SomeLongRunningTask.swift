@@ -1,13 +1,10 @@
 import Foundation
 import Additions
 
-class SomeLongRunningTask: AsyncOperation {
+class SomeLongRunningTask: CancellableTask<Void> {
     
-    override func main() {
-        super.main()
-        Task {
-            try await Task.sleep(for: 1)
-            self.state = .finished
-        }
+    override func execute() async throws -> Void {
+        try await Task.sleep(for: 1)
+        setFinished()
     }
 }

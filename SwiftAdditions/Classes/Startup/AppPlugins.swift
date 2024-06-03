@@ -9,7 +9,7 @@ public protocol AppLifecyclePluginable: UIWindowSceneDelegate, UIApplicationDele
 /// An instance of this protocol will provide a combination of sync / async operations that can be queued before the app's first functions start:
 ///
 /// See in the example app, and its output:
-///
+/// 
 /// ```
 /// class ExampleAppServices: ServiceProvider {
 ///
@@ -19,7 +19,7 @@ public protocol AppLifecyclePluginable: UIWindowSceneDelegate, UIApplicationDele
 ///     lazy var permissionTask = PermissionTask()
 ///     lazy var uiTask = UITask()
 ///
-///     lazy var appTasks: [AppTask] = {
+///     lazy var appTasks: [AsyncOperation] = {
 ///         dependentTask.addDependency(someLongRunningTask)
 ///         uiTask.addDependency(permissionTask)
 ///
@@ -37,6 +37,18 @@ public protocol AppLifecyclePluginable: UIWindowSceneDelegate, UIApplicationDele
 ///             Register(ReaderProtocol.self, { Reader() })
 ///         ]
 ///     }
+///
+///     var appPlugins: [AppLifecyclePluginable] {
+///         [PermissionsPlugin()]
+///     }
+///
+///     func modules() -> [Register] {
+///         [
+///            Register(DataSource.self) { CharacterDataSource() },
+///            Register { self.onboardingTask }
+///         ]
+///     }
+///
 /// }
 /// ```
 ///
@@ -64,15 +76,21 @@ public protocol ServiceProvider {
 /// ```
 /// private lazy var serviceProviders: [ServiceProvider] = [
 ///     ExampleAppServices(),
-///     DomainServices(),
-///     FeatureServices(),
+///     AdditionsServices(),
 /// ]
 /// ```
 ///
-/// build first before getting called, usually in SceneDelegate (AppDelegate if first is not implemented)
+/// used in first class getting called, usually SceneDelegate (AppDelegate if first is not implemented)
 /// ```
-/// AppPlugins.shared.build(serviceProviders: serviceProviders) {
+/// private lazy var tasks = AppTasks.build(serviceProviders: serviceProviders) {
 ///     print("all tasks completed")
+/// }
+/// ```
+///
+/// subsequent uses in other classes, usually AppDelegate:
+/// ```
+/// private var tasks: AppTasks? {
+///     AppTasks.shared
 /// }
 /// ```
 ///
@@ -94,9 +112,9 @@ public protocol ServiceProvider {
 /// }
 ///
 /// ```
-public class AppPlugins {
+public class AppPlugins: @unchecked Sendable {
 
-    public static let shared: AppPlugins = AppPlugins()
+    public static let shared = AppPlugins()
 
     @MainActor
     public func build(serviceProviders: [ServiceProvider], finished: @escaping () -> Void) {
@@ -114,8 +132,10 @@ public class AppPlugins {
 
         queue.addOperations(allTasks, waitUntilFinished: false)
         queue.addBarrierBlock {
-            finished()
-            self.isReady = true
+            Task { @MainActor in
+                finished()                
+                self.isReady = true
+            }
         }
     }
 

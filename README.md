@@ -12,7 +12,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 There's multiple niceties in this repo anyone in Adevinta might be able to use
 
 ### Additions
-- `CoreServiceLocator` simplification using `@Inject` 
+- `@Inject` property wrapper based dependency injection. 
 - `AsyncOperation` simple wrapper over `NSOperation`
 - [AppTasks](Documentation/AppTasks.md) in conjuction with `AppTask: AsyncOperation` and `ServiceProvider` will provide a coordinated way to start any application.
 

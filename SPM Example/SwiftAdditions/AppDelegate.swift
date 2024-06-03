@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    func applicationDidEnterBackground(_ application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {        
         AppPlugins.shared.forEach {
             $0.applicationDidEnterBackground?(application)
         }

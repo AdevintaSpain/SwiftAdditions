@@ -7,7 +7,6 @@ class OnboardingTask: CancellableTask<Void> {
     @MainActor
     override func executeMain() async throws -> Void {
         guard let task = self.dependencies.first(where: { $0 is WindowSetupTask }) as? WindowSetupTask else {
-            finish()
             return
         }
 
@@ -15,7 +14,7 @@ class OnboardingTask: CancellableTask<Void> {
     }
 
     func finish() {
-        state = .finished
+        setFinished()
         print("\(self) \(#function) finished")
     }
 }
