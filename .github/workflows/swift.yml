@@ -19,5 +19,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Build and test ( iOS 15.0)
-      run: xcodebuild test -scheme Additions -destination 'platform=iOS Simulator,OS=16.0,name=iPhone 13 Pro'
+    #- name: Build and test ( iOS 15.0)
+     # run: xcodebuild test -scheme Additions -destination 'platform=iOS Simulator,OS=16.0,name=iPhone 13 Pro'
+    - uses: sersoft-gmbh/xcodebuild-action@v3
+      with:
+        spm-package: './'
+        scheme: Additions
+        destination: platform=iOS
+        action: test
