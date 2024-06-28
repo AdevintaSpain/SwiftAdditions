@@ -1,9 +1,6 @@
 # Additions
 
-[![Build status](https://badger.engprod-pro.mpi-internal.com/badge/travis/scmspain/ios-common--lib-additions)](https://badger.engprod-pro.mpi-internal.com/redirect/travis/scmspain/ios-common--lib-additions)
-[![Version](https://img.shields.io/cocoapods/v/Additions.svg?style=flat)](https://cocoapods.org/pods/Additions)
-[![License](https://img.shields.io/cocoapods/l/Additions.svg?style=flat)](https://cocoapods.org/pods/Additions)
-[![Platform](https://img.shields.io/cocoapods/p/Additions.svg?style=flat)](https://cocoapods.org/pods/Additions)
+[![Swift](https://github.com/AdevintaSpain/SwiftAdditions/actions/workflows/swift.yml/badge.svg)](https://github.com/AdevintaSpain/SwiftAdditions/actions/workflows/swift.yml)
 
 ## Example
 
