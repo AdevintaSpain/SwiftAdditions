@@ -52,16 +52,6 @@
       </MacroExpansion>
       <Testables>
          <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "607FACE41AFB9204008FA782"
-               BuildableName = "SwiftAdditions_Tests.xctest"
-               BlueprintName = "SwiftAdditions_Tests"
-               ReferencedContainer = "container:SwiftAdditions.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
             skipped = "NO"
             parallelizable = "YES">
             <BuildableReference
