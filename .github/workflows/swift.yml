@@ -20,5 +20,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build and test ( iOS 15.0)
-      run: xcodebuild test -scheme Additions -destination 'platform=iOS Simulator,OS=15.0,name=iPhone 13 Pro'
-    #- uses: mxcl/xcodebuild@v3
+      run: xcodebuild test -project SPM\ Example/SwiftAdditions.xcodeproj -scheme 'Example' -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=15.0,name=iPhone 13 Pro'
