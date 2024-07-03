@@ -11,7 +11,7 @@ class ExampleAppServices: ServiceProvider {
     lazy var onboardingTask = OnboardingTask(scope: .main)
     lazy var mainUISetupTask = MainUISetupTask(scope: .main)
 
-    lazy var appTasks: [AsyncOperation] = {
+    lazy var appOperations: [AsyncOperation] = {
         
         dependentTask.addDependency(someLongRunningTask)
 

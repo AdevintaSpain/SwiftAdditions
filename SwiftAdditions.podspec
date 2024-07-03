@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'SwiftAdditions'
   s.module_name      = "Additions"
-  s.version          = '1.0.0'
+  s.version          = '1.1.1'
   s.summary          = 'A short description of Additions.'
 
   s.description      = 'A swift library for syntax sugar, dependency injection and a controlled startup process'

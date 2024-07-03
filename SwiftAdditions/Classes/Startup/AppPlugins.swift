@@ -4,7 +4,6 @@ import UserNotifications
 
 public protocol AppLifecyclePluginable: UIWindowSceneDelegate, UIApplicationDelegate, UNUserNotificationCenterDelegate {}
 
-
 ///
 /// An instance of this protocol will provide a combination of sync / async operations that can be queued before the app's first functions start:
 ///
@@ -65,7 +64,7 @@ public protocol AppLifecyclePluginable: UIWindowSceneDelegate, UIApplicationDele
 ///
 public protocol ServiceProvider {
     func modules() -> [Register]
-    var appTasks: [AsyncOperation] { get }
+    var appOperations: [AsyncOperation] { get }
     @MainActor var appPlugins: [AppLifecyclePluginable] { get }
 }
 
@@ -126,11 +125,11 @@ public class AppPlugins: @unchecked Sendable {
             return result + next
         }
 
-        self.allTasks = serviceProviders.compactMap { $0.appTasks }.reduce([AsyncOperation]()) { (result, next) in
+        self.allOperations = serviceProviders.compactMap { $0.appOperations }.reduce([AsyncOperation]()) { (result, next) in
             return result + next
         }
 
-        queue.addOperations(allTasks, waitUntilFinished: false)
+        queue.addOperations(allOperations, waitUntilFinished: false)
         queue.addBarrierBlock {
             Task { @MainActor in
                 finished()                
@@ -142,7 +141,7 @@ public class AppPlugins: @unchecked Sendable {
     private let queue = OperationQueue()
     private var serviceProviders = [ServiceProvider]()
 
-    private var allTasks: [AsyncOperation] = []
+    private var allOperations: [AsyncOperation] = []
     private var allPlugins: [AppLifecyclePluginable] = []
 
     @MainActor
