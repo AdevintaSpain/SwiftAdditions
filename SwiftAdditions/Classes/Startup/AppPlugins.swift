@@ -64,8 +64,8 @@ public protocol AppLifecyclePluginable: UIWindowSceneDelegate, UIApplicationDele
 ///
 public protocol ServiceProvider {
     func modules() -> [Register]
-    var appOperations: [AsyncOperation] { get }
-    @MainActor var appPlugins: [AppLifecyclePluginable] { get }
+    var operations: [AsyncOperation] { get }
+    @MainActor var plugins: [AppLifecyclePluginable] { get }
 }
 
 ///
@@ -121,11 +121,11 @@ public class AppPlugins: @unchecked Sendable {
         CoreServiceLocator.shared.addBuildTasks {
             serviceProviders
         }
-        self.allPlugins = serviceProviders.compactMap { $0.appPlugins }.reduce([AppLifecyclePluginable]()) { (result, next) in
+        self.allPlugins = serviceProviders.compactMap { $0.plugins }.reduce([AppLifecyclePluginable]()) { (result, next) in
             return result + next
         }
 
-        self.allOperations = serviceProviders.compactMap { $0.appOperations }.reduce([AsyncOperation]()) { (result, next) in
+        self.allOperations = serviceProviders.compactMap { $0.operations }.reduce([AsyncOperation]()) { (result, next) in
             return result + next
         }
 
