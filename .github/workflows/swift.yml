@@ -20,4 +20,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build and test ( iOS 15.0)
-      run: xcodebuild test -project SPM\ Example/SwiftAdditions.xcodeproj -scheme 'Example' -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=15.0,name=iPhone 13 Pro'
+      run: xcodebuild test -scheme 'Additions' -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=17.4,name=iPhone 15'
