@@ -1,0 +1,23 @@
+# This workflow will build a Swift project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-swift
+# For a guide check this blog: https://medium.com/@przemek.jablonski/test-your-swift-package-with-github-actions-ci-22ac116480b8
+
+name: Swift
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule: 
+    - cron: 0 0 * * * #trigger once a day, according to the cron syntax
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build and test ( iOS 15.0)
+      run: xcodebuild test -scheme 'Additions' -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=17.4,name=iPhone 15'
