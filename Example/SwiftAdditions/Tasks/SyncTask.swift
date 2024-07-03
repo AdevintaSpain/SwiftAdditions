@@ -1,7 +1,7 @@
 import Foundation
 import Additions
 
-class SyncTask: NoOpAppTask {
+class SyncTask: AsyncOperation {
 
     override func main() {
         super.main()

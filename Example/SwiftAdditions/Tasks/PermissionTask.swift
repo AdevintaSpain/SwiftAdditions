@@ -3,7 +3,7 @@ import Additions
 import UserNotifications
 import UIKit
 
-class PermissionTask: AppTask {
+class PermissionTask: AsyncOperation {
 
     override func main() {
         super.main()

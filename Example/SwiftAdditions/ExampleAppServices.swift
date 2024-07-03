@@ -11,7 +11,8 @@ class ExampleAppServices: ServiceProvider {
     lazy var onboardingTask = OnboardingTask()
     lazy var mainUISetupTask = MainUISetupTask()
 
-    lazy var appTasks: [AppTask] = {
+    lazy var plugins: [AppLifecyclePluginable] = []
+    lazy var operations: [AsyncOperation] = {
 
         dependentTask.addDependency(someLongRunningTask)
 
@@ -37,7 +38,7 @@ class ExampleAppServices: ServiceProvider {
 
     func modules() -> [Register] {
         [
-            Register(ReaderProtocol.self, { Reader() }),
+            Register(ReaderProtocol.self, .unique, { Reader() }),
             Register { self.onboardingTask }
         ]
     }

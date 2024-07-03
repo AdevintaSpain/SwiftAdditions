@@ -2,13 +2,12 @@ import Foundation
 import Additions
 import SwiftUI
 
-class MainUISetupTask: AppTask {
+class MainUISetupTask: AsyncOperation {
 
-    @Inject var dispatch: Dispatching
     override func main() {
         super.main()
 
-        dispatch.dispatchMain {
+        Task { @MainActor in
             guard let task = self.dependencies.first(where: { $0 is WindowSetupTask }) as? WindowSetupTask else {
                 return
             }

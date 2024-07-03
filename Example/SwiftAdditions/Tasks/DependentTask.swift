@@ -1,14 +1,13 @@
 import Foundation
 import Additions
 
-class DependentTask: AppTask {
-    @Inject var dispatch: Dispatching
+class DependentTask: AsyncOperation {
 
     override func main() {
         super.main()
-        dispatch.dispatchMain(after: 1) {
-            print("\(self) finished")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.state = .finished
+            print("\(self) finished")
         }
     }
 }

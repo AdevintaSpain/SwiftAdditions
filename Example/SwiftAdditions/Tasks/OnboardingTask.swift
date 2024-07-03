@@ -2,14 +2,12 @@ import Foundation
 import Additions
 import SwiftUI
 
-class OnboardingTask: AppTask {
-
-    @Inject var dispatch: Dispatching
+class OnboardingTask: AsyncOperation {
 
     override func main() {
         super.main()
 
-        dispatch.dispatchMain {
+        Task { @MainActor in
             guard let task = self.dependencies.first(where: { $0 is WindowSetupTask }) as? WindowSetupTask else {
                 return
             }
