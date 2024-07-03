@@ -1,50 +1,44 @@
 import SwiftUI
 import Additions
+import Combine
 
 struct PrinterView: View {
-
-    @ObservedObject var presenter = PrinterPresenter()
+    let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+    @Inject private var dataSource: DataSource
+    @State var text: String = ""
 
     var body: some View {
-        Text(presenter.text)
+        Text(text)
+            .onReceive(timer) { _ in
+                guard let c = dataSource.next() else {
+                    timer.upstream.connect().cancel()
+                    return
+                }
+                text.append(c)
+            }
     }
 }
 
-class PrinterPresenter: ObservableObject {
-    @Inject var reader: ReaderProtocol
-    @Published var text: String = ""
+protocol DataSource: AnyObject {
 
-    init() {
-        reader.start { (c) in
-            self.text.append(c)
-        }
-    }
+    func next() -> Character?
 }
 
-protocol ReaderProtocol {
-    func start(update: @escaping (Character) -> Void)
-}
-
-class Reader: ReaderProtocol {
-    var timer: Timer?
+class CharacterDataSource: DataSource {
 
     var characters = "Hello world!!!"
 
-    func start(update: @escaping (Character) -> Void ) {
-        timer = Timer.scheduledTimer(
-            withTimeInterval: 0.2,
-            repeats: true, block: { (timer) in
-                guard let first = self.characters.first else {
-                    self.cancel()
-                    return
-                }
-                self.characters.removeFirst()
-                update(first)
-            })
+    func next() -> Character? {
+        guard characters.count > 0 else {
+            return nil
+        }
+        return characters.removeFirst()
     }
+}
 
-    func cancel() {
-        timer?.invalidate()
-        timer = nil
-    }
+#Preview {
+    PrinterView()
+        .injecting {
+            Register(DataSource.self, .unique) { CharacterDataSource() }
+        }
 }
