@@ -3,10 +3,20 @@ import Additions
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    private lazy var serviceProviders: [ServiceProvider] = [
+        ExampleAppServices(),
+    ]
+    private lazy var plugins: AppPlugins = {
+        AppPlugins.shared.build(serviceProviders: serviceProviders) {
+            print("all tasks completed")
+        }
+        return AppPlugins.shared
+    }()
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 
-        AppPlugins.shared.forEach {
+        plugins.forEach {
             _ = $0.application?(application, didFinishLaunchingWithOptions: launchOptions)
         }
 
@@ -14,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {        
-        AppPlugins.shared.forEach {
+        plugins.forEach {
             $0.applicationDidEnterBackground?(application)
         }
     }

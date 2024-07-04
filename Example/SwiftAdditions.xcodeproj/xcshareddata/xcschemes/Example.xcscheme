@@ -62,6 +62,21 @@
                ReferencedContainer = "container:SwiftAdditions.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "AdditionsTests"
+               BuildableName = "AdditionsTests"
+               BlueprintName = "AdditionsTests"
+               ReferencedContainer = "container:..">
+            </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "TaskQueueTests">
+               </Test>
+            </SkippedTests>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

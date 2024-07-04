@@ -18,18 +18,10 @@ let package = Package(
             dependencies: [],
             path: "SwiftAdditions/Classes"
         ),
-        .target(
-            name: "AdditionsTestHelpers",
-            dependencies: [
-                .target(name: "Additions")
-            ],
-            path: "SwiftAdditions/AdditionsTestHelpers"
-        ),
         .testTarget(
             name: "AdditionsTests",
             dependencies: [
                 .target(name: "Additions"),
-                .target(name: "AdditionsTestHelpers"),
             ],
             path: "SwiftAdditions/Tests"
         )
