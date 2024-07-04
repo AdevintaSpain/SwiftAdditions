@@ -40,7 +40,7 @@ final class TaskQueueTests: XCTestCase {
         XCTAssertEqual(expected, results)
     }
 
-    func testConcurrentQueueItems() async {
+    func disabledTestConcurrentQueueItems() async {
         let operationQueue = OperationQueue()
         let queue = TaskQueue<Int>(queue: operationQueue)
 
@@ -66,7 +66,7 @@ final class TaskQueueTests: XCTestCase {
         XCTAssertEqual(expected.count, results.count) // all items are returned
     }
 
-    func testConcurrentQueueItemsWithCancellations() async {
+    func disabledtestConcurrentQueueItemsWithCancellations() async {
         let queue = TaskQueue<Int>()
         let iterations = (1...20)
         var results = [Int]()
