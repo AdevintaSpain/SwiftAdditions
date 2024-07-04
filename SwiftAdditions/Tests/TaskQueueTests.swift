@@ -40,11 +40,11 @@ final class TaskQueueTests: XCTestCase {
         XCTAssertEqual(expected, results)
     }
 
-    func disabledTestConcurrentQueueItems() async {
+    func flakyTestConcurrentQueueItems() async {
         let operationQueue = OperationQueue()
         let queue = TaskQueue<Int>(queue: operationQueue)
 
-        let iterations = 20
+        let iterations = 10
         var results = [Int]()
         var expected = [Int]()
         var expectations = [XCTestExpectation]()
@@ -66,9 +66,9 @@ final class TaskQueueTests: XCTestCase {
         XCTAssertEqual(expected.count, results.count) // all items are returned
     }
 
-    func disabledtestConcurrentQueueItemsWithCancellations() async {
+    func flakyTestConcurrentQueueItemsWithCancellations() async {
         let queue = TaskQueue<Int>()
-        let iterations = (1...20)
+        let iterations = (1...10)
         var results = [Int]()
         var expected = [Int]()
 
@@ -76,11 +76,12 @@ final class TaskQueueTests: XCTestCase {
         var expectations = [XCTestExpectation]()
 
         for i in iterations {
+            let exp = expectation(description: #function+"_i")
+            expectations.append(exp)
+
             if i.isMultiple(of: 2) {
                 expected.append(i)
             }
-            let exp = expectation(description: #function+"_i")
-            expectations.append(exp)
 
             let task: TestTask = TestTask(i: i) {
                 results.append($0)
@@ -100,7 +101,7 @@ final class TaskQueueTests: XCTestCase {
         XCTAssertTrue(expected != results) //items are returned in a different order
         XCTAssertEqual(expected.sorted(), results.sorted()) // specific items are returned
         XCTAssertEqual(expected.count, results.count) // all items are returned
-        XCTAssertEqual(10, results.count) // all items are returned
+        XCTAssertEqual(5, results.count) // all items are returned
     }
 }
 

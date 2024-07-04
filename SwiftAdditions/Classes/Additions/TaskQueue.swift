@@ -6,6 +6,7 @@ extension Task where Success == Never, Failure == Never {
     }
 }
 
+@available(iOS, introduced: 1.0.0, deprecated: 1.0.1, message: "Operation and async Task are not compatible, causing problems when working with high number of items. Use `WrappedSequence` or `WrappedTaskGroup` instead")
 public class TaskQueue<U> {
     public init(queue: OperationQueue = .init()) {
         self.queue = queue
