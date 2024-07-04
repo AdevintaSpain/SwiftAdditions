@@ -12,14 +12,14 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		FB19D05E2C0E6C2C00F81315 /* StoragePolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB19D05C2C0E6C2C00F81315 /* StoragePolicyTests.swift */; };
 		FB19D05F2C0E6C2C00F81315 /* PrinterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB19D05D2C0E6C2C00F81315 /* PrinterTests.swift */; };
+		FB1A3D642C3693A200B7AF21 /* SomeLongRunningTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1A3D632C3693A200B7AF21 /* SomeLongRunningTask.swift */; };
+		FB1A3D652C3693A200B7AF21 /* DependentTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1A3D612C3693A200B7AF21 /* DependentTask.swift */; };
+		FB1A3D662C3693A200B7AF21 /* SyncTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1A3D622C3693A200B7AF21 /* SyncTask.swift */; };
 		FBE5AACA29A3C228002AC234 /* ExampleAppServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5AAC929A3C228002AC234 /* ExampleAppServices.swift */; };
 		FBE5AAD429A3C269002AC234 /* WindowSetupTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5AACD29A3C269002AC234 /* WindowSetupTask.swift */; };
-		FBE5AAD529A3C26A002AC234 /* SomeLongRunningTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5AACE29A3C269002AC234 /* SomeLongRunningTask.swift */; };
 		FBE5AAD629A3C26A002AC234 /* OnboardingTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5AACF29A3C269002AC234 /* OnboardingTask.swift */; };
 		FBE5AAD729A3C26A002AC234 /* PermissionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5AAD029A3C269002AC234 /* PermissionTask.swift */; };
 		FBE5AAD829A3C26A002AC234 /* MainUISetupTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5AAD129A3C269002AC234 /* MainUISetupTask.swift */; };
-		FBE5AAD929A3C26A002AC234 /* SyncTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5AAD229A3C269002AC234 /* SyncTask.swift */; };
-		FBE5AADA29A3C26A002AC234 /* DependentTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5AAD329A3C269002AC234 /* DependentTask.swift */; };
 		FBE5AADD29A3C287002AC234 /* OnboardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5AADB29A3C287002AC234 /* OnboardingScreen.swift */; };
 		FBE5AADE29A3C287002AC234 /* PrinterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5AADC29A3C287002AC234 /* PrinterView.swift */; };
 		FBE5AAE029A3C4DC002AC234 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5AADF29A3C4DC002AC234 /* SceneDelegate.swift */; };
@@ -46,14 +46,14 @@
 		B74C47468BA71D4FC79CA52B /* Pods_SwiftAdditions_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftAdditions_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB19D05C2C0E6C2C00F81315 /* StoragePolicyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoragePolicyTests.swift; sourceTree = "<group>"; };
 		FB19D05D2C0E6C2C00F81315 /* PrinterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrinterTests.swift; sourceTree = "<group>"; };
+		FB1A3D612C3693A200B7AF21 /* DependentTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependentTask.swift; sourceTree = "<group>"; };
+		FB1A3D622C3693A200B7AF21 /* SyncTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncTask.swift; sourceTree = "<group>"; };
+		FB1A3D632C3693A200B7AF21 /* SomeLongRunningTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeLongRunningTask.swift; sourceTree = "<group>"; };
 		FBE5AAC929A3C228002AC234 /* ExampleAppServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleAppServices.swift; sourceTree = "<group>"; };
 		FBE5AACD29A3C269002AC234 /* WindowSetupTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowSetupTask.swift; sourceTree = "<group>"; };
-		FBE5AACE29A3C269002AC234 /* SomeLongRunningTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SomeLongRunningTask.swift; sourceTree = "<group>"; };
 		FBE5AACF29A3C269002AC234 /* OnboardingTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingTask.swift; sourceTree = "<group>"; };
 		FBE5AAD029A3C269002AC234 /* PermissionTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionTask.swift; sourceTree = "<group>"; };
 		FBE5AAD129A3C269002AC234 /* MainUISetupTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainUISetupTask.swift; sourceTree = "<group>"; };
-		FBE5AAD229A3C269002AC234 /* SyncTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncTask.swift; sourceTree = "<group>"; };
-		FBE5AAD329A3C269002AC234 /* DependentTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependentTask.swift; sourceTree = "<group>"; };
 		FBE5AADB29A3C287002AC234 /* OnboardingScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingScreen.swift; sourceTree = "<group>"; };
 		FBE5AADC29A3C287002AC234 /* PrinterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrinterView.swift; sourceTree = "<group>"; };
 		FBE5AADF29A3C4DC002AC234 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -137,13 +137,13 @@
 		FBE5AACC29A3C269002AC234 /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
+				FB1A3D612C3693A200B7AF21 /* DependentTask.swift */,
+				FB1A3D632C3693A200B7AF21 /* SomeLongRunningTask.swift */,
+				FB1A3D622C3693A200B7AF21 /* SyncTask.swift */,
 				FBE5AACD29A3C269002AC234 /* WindowSetupTask.swift */,
-				FBE5AACE29A3C269002AC234 /* SomeLongRunningTask.swift */,
 				FBE5AACF29A3C269002AC234 /* OnboardingTask.swift */,
 				FBE5AAD029A3C269002AC234 /* PermissionTask.swift */,
 				FBE5AAD129A3C269002AC234 /* MainUISetupTask.swift */,
-				FBE5AAD229A3C269002AC234 /* SyncTask.swift */,
-				FBE5AAD329A3C269002AC234 /* DependentTask.swift */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -270,19 +270,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB1A3D642C3693A200B7AF21 /* SomeLongRunningTask.swift in Sources */,
 				FBE5AADD29A3C287002AC234 /* OnboardingScreen.swift in Sources */,
 				FBE5AAD429A3C269002AC234 /* WindowSetupTask.swift in Sources */,
-				FBE5AAD529A3C26A002AC234 /* SomeLongRunningTask.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
-				FBE5AAD929A3C26A002AC234 /* SyncTask.swift in Sources */,
-				FBE5AADA29A3C26A002AC234 /* DependentTask.swift in Sources */,
 				FBE5AAD629A3C26A002AC234 /* OnboardingTask.swift in Sources */,
 				FBE5AACA29A3C228002AC234 /* ExampleAppServices.swift in Sources */,
 				FBE5AAE029A3C4DC002AC234 /* SceneDelegate.swift in Sources */,
 				FBE5AAD729A3C26A002AC234 /* PermissionTask.swift in Sources */,
+				FB1A3D652C3693A200B7AF21 /* DependentTask.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				FBE5AAD829A3C26A002AC234 /* MainUISetupTask.swift in Sources */,
 				FBE5AADE29A3C287002AC234 /* PrinterView.swift in Sources */,
+				FB1A3D662C3693A200B7AF21 /* SyncTask.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,6 +421,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SwiftAdditions/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -441,6 +442,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SwiftAdditions/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

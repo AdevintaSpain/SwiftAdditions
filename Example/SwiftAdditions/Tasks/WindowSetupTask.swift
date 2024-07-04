@@ -17,8 +17,6 @@ class WindowSetupTask: CancellableTask<Void> {
             window.makeKeyAndVisible()
             setFinished()
             print("\(self) finished")
-        } else {
-            fatalError()
         }
     }
 }

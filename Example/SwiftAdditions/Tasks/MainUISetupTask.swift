@@ -6,7 +6,7 @@ class MainUISetupTask: CancellableTask<Void> {
 
     override func executeMain() async throws -> Void {
         guard let task = self.dependencies.first(where: { $0 is WindowSetupTask }) as? WindowSetupTask else {
-            fatalError()
+            return
         }
 
         let contentView = PrinterView()

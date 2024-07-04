@@ -1,6 +1,5 @@
 import XCTest
 import Additions
-@testable import AdditionsTestHelpers
 
 final class AppPluginsTest: XCTestCase {
 
@@ -89,7 +88,7 @@ class TestServiceProvider: ServiceProvider {
     lazy var shortTask = SyncTask()
     lazy var dependentTask = DependentTask(scope: .default)
 
-    lazy var appTasks: [AsyncOperation] = {
+    lazy var operations: [AsyncOperation] = {
 
         dependentTask.addDependency(someLongRunningTask)
 
@@ -100,9 +99,7 @@ class TestServiceProvider: ServiceProvider {
         ]
     }()
 
-    var appPlugins: [AppLifecyclePluginable] {
-        []
-    }
+    var plugins = [any AppLifecyclePluginable]()
 
     func modules() -> [Register] {
         [
