@@ -11,13 +11,16 @@ class PermissionTask: AsyncOperation {
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
 
-            self.state = .finished
+            self.setFinished()
             print("\(self) finished")
         }
     }
 
+}
+
+class PermissionsPlugin: NSObject, AppLifecyclePluginable {
+
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         print("\(self) \(#function) \n with \(deviceToken)")
     }
-
 }

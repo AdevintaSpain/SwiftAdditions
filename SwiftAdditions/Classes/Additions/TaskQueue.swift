@@ -58,11 +58,21 @@ open class CancellableTask<U>: AsyncOperation {
         switch scope {
         case .default:
             self.task = Task(priority: priority) {
-                self.result = try await execute()
+                do {
+                    self.result = try await execute()
+                    setFinished()
+                } catch {
+                    setFinished()
+                }
             }
         case .main:
             self.task = Task(priority: priority) { @MainActor in
-                self.result = try await executeMain()
+                do {
+                    self.result = try await executeMain()
+                    setFinished()
+                } catch {
+                    setFinished()
+                }
             }
         }
     }
