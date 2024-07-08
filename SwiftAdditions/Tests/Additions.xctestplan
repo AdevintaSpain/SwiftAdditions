@@ -13,9 +13,6 @@
   },
   "testTargets" : [
     {
-      "skippedTests" : [
-        "TaskQueueTests"
-      ],
       "target" : {
         "containerPath" : "container:",
         "identifier" : "AdditionsTests",
