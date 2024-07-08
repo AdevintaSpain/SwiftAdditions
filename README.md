@@ -26,7 +26,7 @@ There's multiple niceties in this repo anyone in Adevinta might be able to use
 
 ## Requirements
 
-- iOS > 13
+- iOS >= 14
 
 ## Installation
 
