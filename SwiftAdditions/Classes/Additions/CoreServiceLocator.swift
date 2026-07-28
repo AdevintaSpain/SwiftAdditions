@@ -31,7 +31,7 @@ public extension ServiceLocator {
 ///  See documentation to on how to add `ServiceProvider` instances (which provide their own set of tasks and registries `[Register]`).
 ///
 
-public class CoreServiceLocator {
+public class CoreServiceLocator: @unchecked Sendable {
     /// Stored object instance factories.
     private var services = [String: Register]()
 
