@@ -44,7 +44,11 @@ public class CoreServiceLocator {
 
 extension CoreServiceLocator {
     /// Composition root container of dependencies.
-    public static let shared = CoreServiceLocator()
+    public static var shared: CoreServiceLocator {
+        _current ?? _global
+    }
+    private static let _global = CoreServiceLocator()
+    @TaskLocal public static var _current: CoreServiceLocator? = nil
 
     /// Registers a specific type and its instantiating factory.
     public func add(@Factory _ module: () -> Register) {
