@@ -38,7 +38,7 @@ public class CoreServiceLocator {
     /// Stored unique object instances.
     private var uniqueInstances = [String: Any]()
 
-    fileprivate init() {}
+    public init() {}
     deinit { services.removeAll() }
 }
 
