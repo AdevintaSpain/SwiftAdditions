@@ -116,7 +116,7 @@ public class AppPlugins: @unchecked Sendable {
     public static let shared = AppPlugins()
 
     @MainActor
-    public func build(serviceProviders: [ServiceProvider], finished: @escaping () -> Void) {
+    public func build(serviceProviders: [ServiceProvider], finished: @escaping @Sendable () -> Void) {
         self.serviceProviders = serviceProviders
         CoreServiceLocator.shared.addBuildTasks {
             serviceProviders

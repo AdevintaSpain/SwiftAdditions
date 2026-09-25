@@ -31,20 +31,24 @@ public extension ServiceLocator {
 ///  See documentation to on how to add `ServiceProvider` instances (which provide their own set of tasks and registries `[Register]`).
 ///
 
-public class CoreServiceLocator {
+public class CoreServiceLocator: @unchecked Sendable {
     /// Stored object instance factories.
     private var services = [String: Register]()
 
     /// Stored unique object instances.
     private var uniqueInstances = [String: Any]()
 
-    fileprivate init() {}
+    public init() {}
     deinit { services.removeAll() }
 }
 
 extension CoreServiceLocator {
     /// Composition root container of dependencies.
-    public static let shared = CoreServiceLocator()
+    public static var shared: CoreServiceLocator {
+        _current ?? _global
+    }
+    private static let _global = CoreServiceLocator()
+    @TaskLocal public static var _current: CoreServiceLocator? = nil
 
     /// Registers a specific type and its instantiating factory.
     public func add(@Factory _ module: () -> Register) {
